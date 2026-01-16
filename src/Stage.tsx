@@ -120,7 +120,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             this.currentState.otherPlayed = Object.values(Play)[Math.floor(Math.random() * Object.values(Play).length)];
             console.log('Opposing play selected: ', this.currentState.otherPlayed);
             stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
-                `It is imperative that this response have another character (possibly {{char}}) immediately play ${this.currentState.otherPlayed} in response, resulting in`;
+                `It is imperative that this response have another character immediately play ${this.currentState.otherPlayed} in opposition, resulting in`;
 
             if (this.currentState.otherPlayed === this.currentState.userPlayed) {
                 stageDirections = `${stageDirections} a tie. The universe will simply abide.`;
