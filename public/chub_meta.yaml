@@ -29,12 +29,6 @@ tags:
  - 'RPG'
  - 'Add-On'
 
-# The schema of any user-supplied config.
-# If your stage requires a configuration but has no
-#   defined schema, it won't work.
-config_schema:
-  type: object
-
 # The schema of the state that you store.
 # This isn't needed even if you do store state,
 #   and is here more for future use cases to

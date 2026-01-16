@@ -96,7 +96,6 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 'nothing': undefined};
             const playHypothesis = '{{user}} is playing {}.';
             let playResponse = await this.query({sequence: sequence, candidate_labels: Object.keys(playMapping), hypothesis_template: playHypothesis, multi_label: true });
-            console.log(playResponse);
             if (playResponse && playResponse.labels && playResponse.labels.length && playResponse.labels[0]) {
                 console.log(`Play detected: ${playMapping[playResponse.labels[0]]}`);
                 this.currentState.userPlayed = playMapping[playResponse.labels[0]];
@@ -110,22 +109,23 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         if (this.currentState.userPlayed) {
             // User picked something, pick an otherPlayed;
             this.currentState.otherPlayed = Object.values(Play)[Math.floor(Math.random() * Object.values(Play).length)];
+            console.log('Opposing play selected: ', this.currentState.otherPlayed);
 
             if (this.currentState.otherPlayed === this.currentState.userPlayed) {
-                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by throwing ${this.currentState.userPlayed}. ` +
-                    `Depict an opposing party that will now throw ${this.currentState.otherPlayed}, resulting in a tie. As a result, the universe will simply abide.`;
+                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
+                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in a tie. As a result, the universe will simply abide.`;
                 this.currentState.ties += 1;
             } else if (
                 (this.currentState.userPlayed === Play.ROCK && this.currentState.otherPlayed === Play.SCISSORS) ||
                 (this.currentState.userPlayed === Play.PAPER && this.currentState.otherPlayed === Play.ROCK) ||
                 (this.currentState.userPlayed === Play.SCISSORS && this.currentState.otherPlayed === Play.PAPER)
             ) {
-                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by throwing ${this.currentState.userPlayed}. ` +
-                    `Depict an opposing party that will now throw ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral victory; the universe will bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
+                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
+                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral victory; the universe will bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
                 this.currentState.wins += 1;
             } else {
-                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by throwing ${this.currentState.userPlayed}. ` +
-                    `Depict an opposing party that will now throw ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral defeat; the universe will subvert the will {{user}}'s current objective or intent in ridiculous fashion.`;
+                stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
+                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral defeat; the universe will subvert the will {{user}}'s current objective or intent in ridiculous fashion.`;
                 this.currentState.losses += 1;
             }
         } else {
@@ -187,7 +187,6 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         if (this.client) {
             try {
                 const response = await this.client.predict("/predict", {data_string: JSON.stringify(data)});
-                console.log(response);
                 result = JSON.parse(`${response.data[0]}`);
             } catch(e) {
                 console.log(e);
