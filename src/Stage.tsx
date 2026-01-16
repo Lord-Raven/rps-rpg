@@ -133,7 +133,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 stageDirections = `${stageDirections} {{user}}'s unilateral victory; the universe will then bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
                 this.currentState.wins += 1;
             } else {
-                stageDirections = `${stageDirections} {{user}}'s unilateral defeat; the universe will then subvert {{user}}'s current objective or intent in ridiculous fashion.`;
+                stageDirections = `${stageDirections} {{user}}'s utter defeat; the universe will then subvert {{user}}'s intent in ridiculous fashion.`;
                 this.currentState.losses += 1;
             }
         } else {
