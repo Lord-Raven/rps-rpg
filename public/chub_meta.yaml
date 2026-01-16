@@ -8,7 +8,7 @@ project_name: "RPS RPG"
 tagline: "Settle Things the Old-Fashioned Way"
 
 creator_notes: |
-  By adding this stage, your chat universe will properly bend to the time-honored will of Rock-Paper-Scissors. Any time you throw down some RPS, the result will determine your outcome.
+  By adding this stage, your chat universe will properly bend to the time-honored will of Rock-Paper-Scissors. Any time you throw down some RPS, the result will determine your outcome. This is among the dumber things I've ever made. Have fun, I guess.
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
 visibility: 'PRIVATE'

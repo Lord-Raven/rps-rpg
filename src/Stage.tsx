@@ -96,9 +96,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 'nothing': undefined};
             const playHypothesis = '{{user}} is playing {}.';
             let playResponse = await this.query({sequence: sequence, candidate_labels: Object.keys(playMapping), hypothesis_template: playHypothesis, multi_label: true });
+            console.log(playResponse);
             if (playResponse && playResponse.labels && playResponse.labels.length && playResponse.labels[0]) {
                 console.log(`Play detected: ${playMapping[playResponse.labels[0]]}`);
                 this.currentState.userPlayed = playMapping[playResponse.labels[0]];
+            } else {
+                console.log('Bad response for play detection.');
             }
         }
 
@@ -184,6 +187,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         if (this.client) {
             try {
                 const response = await this.client.predict("/predict", {data_string: JSON.stringify(data)});
+                console.log(response);
                 result = JSON.parse(`${response.data[0]}`);
             } catch(e) {
                 console.log(e);
