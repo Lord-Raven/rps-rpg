@@ -34,7 +34,6 @@ tags:
 #   defined schema, it won't work.
 config_schema:
   type: object
-  properties:
 
 # The schema of the state that you store.
 # This isn't needed even if you do store state,

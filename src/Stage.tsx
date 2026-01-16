@@ -41,11 +41,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         super(data);
         const {
             users,
+            characters,
             messageState,
         } = data;
 
         this.users = users;
-        this.characters = this.characters;
+        this.characters = characters;
         this.currentState = messageState as MessageStateType;
     }
 
