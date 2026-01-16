@@ -132,13 +132,12 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             stageDirections = `${stageDirections} But no one is playing rock-paper-scissors in this moment.`;
         }
 
-        const systemMessage = (this.currentState.wins + this.currentState.losses + this.currentState.ties > 0) ? `---\n{{user}}'s record: ${this.currentState.wins}-${this.currentState.losses}-${this.currentState.ties}.` : null;
-
+        
         return {
             stageDirections: stageDirections,
             messageState: {...this.currentState},
             modifiedMessage: null,
-            systemMessage: systemMessage,
+            systemMessage: null,
             error: null,
             chatState: null,
         };
@@ -166,12 +165,14 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             }
         }
 
+        const systemMessage = (this.currentState.wins + this.currentState.losses + this.currentState.ties > 0) ? `---\n{{user}}'s record: ${this.currentState.wins}-${this.currentState.losses}-${this.currentState.ties}.` : null;
+
         return {
             stageDirections: null,
             messageState: {...this.currentState},
             modifiedMessage: finalContent,
             error: null,
-            systemMessage: null,
+            systemMessage: systemMessage,
             chatState: null
         };
     }

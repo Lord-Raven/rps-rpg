@@ -11,7 +11,7 @@ creator_notes: |
   By adding this stage, your chat universe will properly bend to the time-honored will of Rock-Paper-Scissors. Any time you throw down some RPS, the result will determine your outcome. This is among the dumber things I've ever made. Have fun, I guess.
 
 # 'PUBLIC', 'PRIVATE', or 'UNLISTED'.
-visibility: 'PRIVATE'
+visibility: 'PUBLIC'
 
 # 'ADJACENT' | 'NONE' | 'COVER' | 'FULLSCREEN'
 # 'ADJACENT' is default. The frame will display on the side of the
@@ -28,6 +28,19 @@ tags:
  - 'Stage'
  - 'RPG'
  - 'Add-On'
+
+# The schema of any user-supplied config.
+# If your stage requires a configuration but has no
+#   defined schema, it won't work.
+config_schema:
+  type: object
+  properties:
+    debug_mode:
+      title: Debug Mode
+      description: Enable experimental debug junk. Maybe don't.
+      type: string
+      default: "False"
+      enum: ["True", "False"]
 
 # The schema of the state that you store.
 # This isn't needed even if you do store state,
