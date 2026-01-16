@@ -113,7 +113,7 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
             if (this.currentState.otherPlayed === this.currentState.userPlayed) {
                 stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
-                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in a tie. As a result, the universe will simply abide.`;
+                    `It is critical that this response must have someone else in the scene play ${this.currentState.otherPlayed}, resulting in a tie. As a result, the universe will simply abide.`;
                 this.currentState.ties += 1;
             } else if (
                 (this.currentState.userPlayed === Play.ROCK && this.currentState.otherPlayed === Play.SCISSORS) ||
@@ -121,15 +121,15 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
                 (this.currentState.userPlayed === Play.SCISSORS && this.currentState.otherPlayed === Play.PAPER)
             ) {
                 stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
-                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral victory; the universe will bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
+                    `It is critical that this response must have someone else in the scene play ${this.currentState.otherPlayed}. This will result in {{user}}'s unilateral victory; the universe will bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
                 this.currentState.wins += 1;
             } else {
                 stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
-                    `Someone else in the scene must now play ${this.currentState.otherPlayed}, resulting in {{user}}'s unilateral defeat; the universe will subvert the will {{user}}'s current objective or intent in ridiculous fashion.`;
+                    `It is critical that this response must have someone else in the scene play ${this.currentState.otherPlayed}. This will result in {{user}}'s unilateral defeat; the universe will subvert the will {{user}}'s current objective or intent in ridiculous fashion.`;
                 this.currentState.losses += 1;
             }
         } else {
-            stageDirections = `${stageDirections} But no one is playing rock-paper-scissors in this moment.`;
+            stageDirections = `${stageDirections} No one is playing rock-paper-scissors in this moment, but if a game were recently played, the outcome should be reflected in the narrative.`;
         }
 
         
