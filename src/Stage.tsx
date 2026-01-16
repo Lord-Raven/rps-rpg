@@ -111,20 +111,20 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
             this.currentState.otherPlayed = Object.values(Play)[Math.floor(Math.random() * Object.values(Play).length)];
             console.log('Opposing play selected: ', this.currentState.otherPlayed);
             stageDirections = `${stageDirections} {{user}} has invoked the universe's will by playing ${this.currentState.userPlayed}. ` +
-                `It is critical that this response have another character (possibly {{char}}) play ${this.currentState.otherPlayed} in response, resulting in`;
+                `It is imperative that this response have another character (possibly {{char}}) immediately play ${this.currentState.otherPlayed} in response, resulting in`;
 
             if (this.currentState.otherPlayed === this.currentState.userPlayed) {
-                stageDirections = `${stageDirections} a tie. As a result, the universe will simply abide.`;
+                stageDirections = `${stageDirections} a tie. The universe will simply abide.`;
                 this.currentState.ties += 1;
             } else if (
                 (this.currentState.userPlayed === Play.ROCK && this.currentState.otherPlayed === Play.SCISSORS) ||
                 (this.currentState.userPlayed === Play.PAPER && this.currentState.otherPlayed === Play.ROCK) ||
                 (this.currentState.userPlayed === Play.SCISSORS && this.currentState.otherPlayed === Play.PAPER)
             ) {
-                stageDirections = `${stageDirections} {{user}}'s unilateral victory; the universe will bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
+                stageDirections = `${stageDirections} {{user}}'s unilateral victory; the universe will then bend to achieve {{user}}'s current objective or intent, no matter how ridiculous.`;
                 this.currentState.wins += 1;
             } else {
-                stageDirections = `${stageDirections} {{user}}'s unilateral defeat; the universe will subvert {{user}}'s current objective or intent in ridiculous fashion.`;
+                stageDirections = `${stageDirections} {{user}}'s unilateral defeat; the universe will then subvert {{user}}'s current objective or intent in ridiculous fashion.`;
                 this.currentState.losses += 1;
             }
         } else {
@@ -134,12 +134,17 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         
         return {
             stageDirections: stageDirections,
-            messageState: {...this.currentState},
+            messageState: this.getCurrentState(),
             modifiedMessage: null,
             systemMessage: null,
             error: null,
             chatState: null,
         };
+    }
+
+    getCurrentState(): MessageStateType {
+        console.log('Current message state: ', this.currentState);
+        return {...this.currentState};
     }
 
     async afterResponse(botMessage: Message): Promise<Partial<StageResponse<ChatStateType, MessageStateType>>> {
@@ -168,10 +173,10 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
 
         console.log('Final content after trimming:', finalContent);
         console.log('System message to append:', systemMessage);
-        
+
         return {
             stageDirections: null,
-            messageState: {...this.currentState},
+            messageState: this.getCurrentState(),
             modifiedMessage: finalContent,
             error: null,
             systemMessage: systemMessage,
