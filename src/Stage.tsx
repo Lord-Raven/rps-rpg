@@ -48,6 +48,15 @@ export class Stage extends StageBase<InitStateType, ChatStateType, MessageStateT
         this.users = users;
         this.characters = characters;
         this.currentState = messageState as MessageStateType;
+        if (!this.currentState) {
+            this.currentState = {
+                wins: 0,
+                losses: 0,
+                ties: 0,
+                userPlayed: undefined,
+                otherPlayed: undefined,
+            };
+        }
     }
 
     async load(): Promise<Partial<LoadResponse<InitStateType, ChatStateType, MessageStateType>>> {
